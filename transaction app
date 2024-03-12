@@ -1,0 +1,45 @@
+<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Transaction Recorder</title> 
+</head> 
+<body>
+<h1>Financial Transaction Recorder</h1> 
+<label for="amount">Amount:</label>
+<input type="number" id="amount" placeholder="Enter amount"> 
+<label for="description">Description:</label>
+<input type="text" id="description" placeholder="Enter description"> 
+<button onclick="recordTransaction()">Record Transaction</button> 
+<script> 
+function recordTransaction() { 
+const amount = document.getElementById('amount').value; 
+const description = document.getElementById('description').value; 
+if (!amount || isNaN(amount)) { 
+alert('Please enter a valid amount.'); 
+return; } 
+
+const apiUrl = 'https://your-transaction-api.com/record'; 
+const data = { 
+amount: parseFloat(amount), 
+description: description };  fetch(apiUrl, { 
+method: 'POST',
+headers: { 
+'Content-Type': 'application/json', 
+}, 
+body: JSON.stringify(data)
+}) 
+.then(response => response.json()) 
+.then(data => { 
+console.log('Transaction recorded successfully:', data); 
+alert('Transaction recorded successfully!');
+}) 
+.catch(error => {
+console.error('Error recording transaction:', error);
+alert('Error recording transaction. Please try again.');
+});
+} 
+</script> 
+</body> 
+</html>
